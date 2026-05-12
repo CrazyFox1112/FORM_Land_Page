@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORM — Базовая одежда премиального качества</title>
+  <meta name="description" content="Минималистичная одежда для тех, кто ценит продуманный дизайн и безупречные материалы">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg: #f5f3ef;
+      --bg-secondary: #ebe8e3;
+      --text: #1a1814;
+      --text-secondary: #5c5650;
+      --accent: #8b7355;
+      --accent-hover: #6d5a44;
+      --border: #d4d0c8;
+      --white: #ffffff;
+    }
+    
+    [data-theme="dark"] {
+      --bg: #1a1814;
+      --bg-secondary: #2a2620;
+      --text: #f5f3ef;
+      --text-secondary: #a8a49c;
+      --accent: #b89b7a;
+      --accent-hover: #d4b896;
+      --border: #3d3832;
+      --white: #2a2620;
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    
+    a { color: inherit; text-decoration: none; }
+    
+    img { max-width: 100%; height: auto; display: block; }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(245, 243, 239, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background-color 0.3s;
+    }
+    
+    [data-theme="dark"] .nav {
+      background: rgba(26, 24, 20, 0.85);
+    }
+    
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      gap: 32px;
+    }
+    
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.2s;
+      padding: 8px 0;
+      position: relative;
+    }
+    
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
+    }
+    
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+    
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s;
+    }
+    
+    .theme-toggle:hover { border-color: var(--text); }
+    
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text);
+      fill: none;
+    }
+    
+    .sun-icon { display: none; }
+    [data-theme="dark"] .sun-icon { display: block; }
+    [data-theme="dark"] .moon-icon { display: none; }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+    }
+    
+    .btn-primary:hover {
+      background: var(--accent);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--text);
+    }
+    
+    .btn-accent {
+      background: var(--accent);
+      color: var(--white);
+    }
+    
+    .btn-accent:hover {
+      background: var(--accent-hover);
+    }
+    
+    /* Mobile nav */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    
+    .mobile-menu-btn span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .nav-cta { display: none; }
+      
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        padding: 24px;
+        gap: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+    
+    /* Main content */
+    main {
+      padding-top: 72px;
+    }
+    
+    .page {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .page.active {
+      display: block;
+      opacity: 1;
+    }
+    
+    /* Hero */
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 80px 0;
+    }
+    
+    .hero-content h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    
+    .hero-content p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .hero-image {
+      position: relative;
+      height: 80vh;
+      max-height: 700px;
+    }
+    
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    @media (max-width: 968px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        min-height: auto;
+        padding: 48px 0;
+      }
+      
+      .hero-content p { margin-left: auto; margin-right: auto; }
+      .hero-buttons { justify-content: center; }
+      
+      .hero-image {
+        height: 60vh;
+        order: -1;
+      }
+    }
+    
+    /* Section styles */
+    .section {
+      padding: 80px 0;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    .section-header h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      margin-bottom: 16px;
+    }
+    
+    .section-header p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Product cards */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    
+    @media (max-width: 968px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    @media (max-width: 576px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+    
+    .product-card {
+      position: relative;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+    
+    .product-images {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    
+    .product-images img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .product-images img.active {
+      opacity: 1;
+    }
+    
+    .image-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    
+    .image-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .image-dot.active {
+      background: var(--white);
+    }
+    
+    /* AI Badge */
+    .ai-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: 100px;
+      z-index: 15;
+      backdrop-filter: blur(4px);
+    }
+    
+    .hero-image .ai-badge {
+      bottom: 20px;
+      left: 20px;
+      font-size: 12px;
+      padding: 8px 14px;
+    }
+    
+    .about-hero .ai-badge {
+      bottom: auto;
+      top: 20px;
+      left: 20px;
+      font-size: 12px;
+      padding: 8px 14px;
+    }
+    
+    .team-image .ai-badge {
+      bottom: 20px;
+      left: 20px;
+    }
+    
+    .product-info {
+      padding: 20px;
+    }
+    
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    
+    .product-material {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .product-price {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .product-btn {
+      padding: 10px 16px;
+      font-size: 13px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    
+    .product-card:hover .product-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    @media (max-width: 768px) {
+      .product-btn {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Values */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      text-align: center;
+    }
+    
+    @media (max-width: 768px) {
+      .values-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    
+    .value-item {
+      padding: 32px;
+    }
+    
+    .value-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+    }
+    
+    .value-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--accent);
+      fill: none;
+    }
+    
+    .value-item h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    
+    .value-item p {
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+    
+    /* Press */
+    .press-section {
+      background: var(--bg-secondary);
+    }
+    
+    .press-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 64px;
+      flex-wrap: wrap;
+    }
+    
+    .press-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    
+    /* Newsletter */
+    .newsletter {
+      background: var(--text);
+      color: var(--bg);
+      text-align: center;
+    }
+    
+    .newsletter h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      margin-bottom: 16px;
+    }
+    
+    .newsletter p {
+      opacity: 0.8;
+      margin-bottom: 32px;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      color: #eeebe4;
+      font-size: 15px;
+      font-family: inherit;
+    }
+    
+    .newsletter-form input::placeholder {
+      color: rgba(245,243,239,0.6);
+    }
+    
+    .newsletter-form input:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.15);
+    }
+    
+    .newsletter-form button {
+      background: var(--accent);
+      color: var(--white);
+      white-space: nowrap;
+    }
+    
+    @media (max-width: 576px) {
+      .newsletter-form {
+        flex-direction: column;
+      }
+    }
+    
+    /* Collection page */
+    .collection-header {
+      padding: 48px 0;
+      text-align: center;
+    }
+    
+    .collection-header h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      margin-bottom: 16px;
+    }
+    
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    
+    .filter-btn {
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      color: var(--text);
+    }
+    
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    
+    /* About page */
+    .about-hero {
+      position: relative;
+      height: 60vh;
+      min-height: 400px;
+      margin-bottom: 80px;
+    }
+    
+    .about-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .about-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, var(--bg));
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 48px;
+    }
+    
+    .about-hero h1 {
+      font-size: clamp(40px, 6vw, 64px);
+      text-align: center;
+    }
+    
+    .about-story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 80px;
+    }
+    
+    @media (max-width: 768px) {
+      .about-story { grid-template-columns: 1fr; gap: 32px; }
+    }
+    
+    .about-story p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    
+    .about-story p:first-child {
+      font-size: 20px;
+      color: var(--text);
+    }
+    
+    /* Timeline */
+    .timeline {
+      padding: 80px 0;
+      background: var(--bg-secondary);
+    }
+    
+    .timeline-items {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    
+    @media (max-width: 968px) {
+      .timeline-items { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    @media (max-width: 576px) {
+      .timeline-items { grid-template-columns: 1fr; }
+    }
+    
+    .timeline-item {
+      text-align: center;
+      padding: 24px;
+    }
+    
+    .timeline-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .timeline-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--accent);
+      fill: none;
+    }
+    
+    .timeline-item h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    
+    .timeline-item p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    
+    /* Materials */
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    
+    @media (max-width: 768px) {
+      .materials-grid { grid-template-columns: 1fr; }
+    }
+    
+    .material-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .material-swatch {
+      height: 200px;
+      background: var(--bg-secondary);
+    }
+    
+    .material-swatch.cotton { background: #f5f0e6; }
+    .material-swatch.terry { background: #e8e4dc; }
+    .material-swatch.merino { background: #d4cfc4; }
+    
+    .material-info {
+      padding: 24px;
+    }
+    
+    .material-info h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    
+    .material-info p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    
+    /* Team */
+    .team-image {
+      margin-top: 80px;
+      position: relative;
+      height: 50vh;
+      min-height: 400px;
+    }
+    
+    .team-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    
+    /* Delivery page */
+    .delivery-header {
+      padding: 48px 0 32px;
+      text-align: center;
+    }
+    
+    .delivery-header h1 {
+      font-size: clamp(36px, 5vw, 56px);
+    }
+    
+    .delivery-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 64px;
+    }
+    
+    .delivery-table th,
+    .delivery-table td {
+      padding: 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .delivery-table th {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      background: var(--bg-secondary);
+    }
+    
+    .delivery-table td {
+      font-size: 15px;
+    }
+    
+    /* Return steps */
+    .return-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+    
+    @media (max-width: 968px) {
+      .return-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    @media (max-width: 576px) {
+      .return-steps { grid-template-columns: 1fr; }
+    }
+    
+    .return-step {
+      text-align: center;
+      padding: 32px 20px;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+    }
+    
+    .step-number {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+    }
+    
+    .return-step h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    
+    .return-step p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    
+    /* FAQ */
+    .faq-section {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .faq-question {
+      width: 100%;
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      text-align: left;
+    }
+    
+    .faq-question svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--text);
+      fill: none;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+    
+    .faq-item.open .faq-question svg {
+      transform: rotate(45deg);
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding-bottom: 24px;
+    }
+    
+    .faq-answer p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      padding: 48px 0;
+      margin-top: 80px;
+    }
+    
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .footer-links a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--text);
+    }
+    
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    
+    @media (max-width: 768px) {
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo">FORM</a>
+      
+      <ul class="nav-links" id="navLinks">
+        <li><span class="nav-link active" data-page="home">Главная</span></li>
+        <li><span class="nav-link" data-page="collection">Коллекция</span></li>
+        <li><span class="nav-link" data-page="about">О бренде</span></li>
+        <li><span class="nav-link" data-page="delivery">Доставка и возврат</span></li>
+      </ul>
+      
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+          <svg class="moon-icon" viewBox="0 0 24 24" stroke-width="1.5">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" stroke-width="1.5">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="btn btn-primary nav-cta" data-page="collection">Каталог</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HOME PAGE -->
+    <div class="page active" id="page-home">
+      <!-- Hero -->
+      <section class="hero container">
+        <div class="hero-content">
+          <h1>Форма имеет значение</h1>
+          <p>Минималистичная одежда для тех, кто ценит продуманный дизайн и безупречные материалы. Базовые вещи, которые служат годами.</p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary" data-page="collection">Смотреть коллекцию</button>
+            <button class="btn btn-secondary" data-page="about">О бренде</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&h=1000&fit=crop" alt="Модель в минималистичной одежде">
+          <span class="ai-badge">Создано с помощью ИИ</span>
+        </div>
+      </section>
+
+      <!-- Featured Products -->
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Избранное</h2>
+            <p>Самые популярные модели нашей коллекции</p>
+          </div>
+          
+          <div class="products-grid">
+            <div class="product-card">
+              <div class="product-images">
+                <img class="active" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop" alt="Футболка Essential">
+                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=800&fit=crop" alt="Футболка Essential вид сзади">
+                <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&h=800&fit=crop" alt="Футболка Essential детали">
+                <span class="ai-badge">Создано с помощью ИИ</span>
+                <div class="image-dots">
+                  <span class="image-dot active" data-index="0"></span>
+                  <span class="image-dot" data-index="1"></span>
+                  <span class="image-dot" data-index="2"></span>
+                </div>
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">Футболка Essential</h3>
+                <p class="product-material">100% органический хлопок</p>
+                <div class="product-footer">
+                  <span class="product-price">4 900 ₽</span>
+                  <button class="btn btn-accent product-btn">В корзину</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="product-card">
+              <div class="product-images">
+                <img class="active" src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop" alt="Худи Oversized">
+                <img src="https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=600&h=800&fit=crop" alt="Худи Oversized вид сбоку">
+                <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&h=800&fit=crop" alt="Худи Oversized детали">
+                <span class="ai-badge">Создано с помощью ИИ</span>
+                <div class="image-dots">
+                  <span class="image-dot active" data-index="0"></span>
+                  <span class="image-dot" data-index="1"></span>
+                  <span class="image-dot" data-index="2"></span>
+                </div>
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">Худи Oversized</h3>
+                <p class="product-material">Французский терри 350 г/м²</p>
+                <div class="product-footer">
+                  <span class="product-price">12 900 ₽</span>
+                  <button class="btn btn-accent product-btn">В корзину</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="product-card">
+              <div class="product-images">
+                <img class="active" src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&h=800&fit=crop" alt="Брюки Wide Leg">
+                <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=800&fit=crop" alt="Брюки Wide Leg вид сбоку">
+                <img src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&h=800&fit=crop" alt="Брюки Wide Leg детали">
+                <span class="ai-badge">Создано с помощью ИИ</span>
+                <div class="image-dots">
+                  <span class="image-dot active" data-index="0"></span>
+                  <span class="image-dot" data-index="1"></span>
+                  <span class="image-dot" data-index="2"></span>
+                </div>
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">Брюки Wide Leg</h3>
+                <p class="product-material">Шерсть мериноса</p>
+                <div class="product-footer">
+                  <span class="product-price">14 500 ₽</span>
+                  <button class="btn btn-accent product-btn">В корзину</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Values -->
+      <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+          <div class="values-grid">
+            <div class="value-item">
+              <div class="value-icon">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                </svg>
+              </div>
+              <h3>Качество</h3>
+              <p>Только премиальные ткани от проверенных европейских поставщиков</p>
+            </div>
+            
+            <div class="value-item">
+              <div class="value-icon">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                  <path d="M8 12L12 8L16 12L12 16L8 12Z"/>
+                </svg>
+              </div>
+              <h3>Экология</h3>
+              <p>Устойчивое производство и экологичные материалы в каждом изделии</p>
+            </div>
+            
+            <div class="value-item">
+              <div class="value-icon">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <path d="M12 8V12L15 15"/>
+                  <circle cx="12" cy="12" r="10"/>
+                </svg>
+              </div>
+              <h3>Долговечность</h3>
+              <p>Вещи, которые не теряют форму и цвет даже после сотен стирок</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Press -->
+      <section class="section press-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>О нас пишут</h2>
+          </div>
+          <div class="press-logos">
+            <span class="press-logo">Vogue Russia</span>
+            <span class="press-logo">Harper&apos;s Bazaar</span>
+            <span class="press-logo">Esquire</span>
+            <span class="press-logo">GQ</span>
+            <span class="press-logo">The Blueprint</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Newsletter -->
+      <section class="section newsletter">
+        <div class="container">
+          <h2>Будьте в курсе</h2>
+          <p>Подпишитесь на рассылку и получите скидку 10% на первый заказ</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Спасибо за подписку!');">
+            <input type="email" placeholder="Ваш email" required>
+            <button type="submit" class="btn">Подписаться</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- COLLECTION PAGE -->
+    <div class="page" id="page-collection">
+      <div class="container">
+        <div class="collection-header">
+          <h1>Коллекция</h1>
+          <p>Базовые вещи вне времени</p>
+        </div>
+        
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">Все</button>
+          <button class="filter-btn" data-filter="tshirts">Футболки</button>
+          <button class="filter-btn" data-filter="hoodies">Худи</button>
+          <button class="filter-btn" data-filter="pants">Брюки</button>
+        </div>
+        
+        <div class="products-grid" id="collectionGrid">
+          <!-- T-shirts -->
+          <div class="product-card" data-category="tshirts">
+            <div class="product-images">
+              <img class="active" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop" alt="Футболка Essential белая">
+              <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=800&fit=crop" alt="Футболка Essential белая вид 2">
+              <span class="ai-badge">Создано с помощью ИИ</span>
+              <div class="image-dots">
+                <span class="image-dot active" data-index="0"></span>
+                <span class="image-dot" data-index="1"></span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Футболка Essential</h3>
+              <p class="product-material">100% органический хлопок</p>
+              <div class="product-footer">
+                <span class="product-price">4 900 ₽</span>
+                <button class="btn btn-accent product-btn">В корзину</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card" data-category="tshirts">
+            <div class="product-images">
+              <img class="active" src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop" alt="Футболка Essential черная">
+              <img src="https://images.unsplash.com/photo-1618354691438-25bc04584c23?w=600&h=800&fit=crop" alt="Футболка Essential черная вид 2">
+              <span class="ai-badge">Создано с помощью ИИ</span>
+              <div class="image-dots">
+                <span class="image-dot active" data-index="0"></span>
+                <span class="image-dot" data-index="1"></span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Футболка Essential Noir</h3>
+              <p class="product-material">100% органический хлопок</p>
+              <div class="product-footer">
+                <span class="product-price">4 900 ₽</span>
+                <button class="btn btn-accent product-btn">В корзину</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Hoodies -->
+          <div class="product-card" data-category="hoodies">
+            <div class="product-images">
+              <img class="active" src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop" alt="Худи Oversized серый">
+              <img src="https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=600&h=800&fit=crop" alt="Худи Oversized серый вид 2">
+              <span class="ai-badge">Создано с помощью ИИ</span>
+              <div class="image-dots">
+                <span class="image-dot active" data-index="0"></span>
+                <span class="image-dot" data-index="1"></span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Худи Oversized</h3>
+              <p class="product-material">Французский терри 350 г/м²</p>
+              <div class="product-footer">
+                <span class="product-price">12 900 ₽</span>
+                <button class="btn btn-accent product-btn">В корзину</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card" data-category="hoodies">
+            <div class="product-images">
+              <img class="active" src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&h=800&fit=crop" alt="Худи Classic бежевый">
+              <img src="https://images.unsplash.com/photo-1609873814058-a8928924184a?w=600&h=800&fit=crop" alt="Худи Classic бежевый вид 2">
+              <span class="ai-badge">Создано с помощью ИИ</span>
+              <div class="image-dots">
+                <span class="image-dot active" data-index="0"></span>
+                <span class="image-dot" data-index="1"></span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Худи Classic</h3>
+              <p class="product-material">Французский терри 350 г/м²</p>
+              <div class="product-footer">
+                <span class="product-price">11 500 ₽</span>
+                <button class="btn btn-accent product-btn">В корзину</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Pants -->
+          <div class="product-card" data-category="pants">
+            <div class="product-images">
+              <img class="active" src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&h=800&fit=crop" alt="Брюки Wide Leg">
+              <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=800&fit=crop" alt="Брюки Wide Leg вид 2">
+              <span class="ai-badge">Создано с помощью ИИ</span>
+              <div class="image-dots">
+                <span class="image-dot active" data-index="0"></span>
+                <span class="image-dot" data-index="1"></span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Брюки Wide Leg</h3>
+              <p class="product-material">Шерсть мериноса</p>
+              <div class="product-footer">
+                <span class="product-price">14 500 ₽</span>
+                <button class="btn btn-accent product-btn">В корзину</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card" data-category="pants">
+            <div class="product-images">
+              <img class="active" src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&h=800&fit=crop" alt="Брюки Straight">
+              <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&h=800&fit=crop" alt="Брюки Straight вид 2">
+              <span class="ai-badge">Создано с помощью ИИ</span>
+              <div class="image-dots">
+                <span class="image-dot active" data-index="0"></span>
+                <span class="image-dot" data-index="1"></span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Брюки Straight</h3>
+              <p class="product-material">Хлопковый твил</p>
+              <div class="product-footer">
+                <span class="product-price">9 900 ₽</span>
+                <button class="btn btn-accent product-btn">В корзину</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div class="page" id="page-about">
+      <div class="about-hero">
+        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600&h=900&fit=crop" alt="Ателье FORM">
+        <span class="ai-badge">Создано с помощью ИИ</span>
+        <div class="about-hero-overlay">
+          <h1>О бренде</h1>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="about-story">
+          <div>
+            <p>FORM родился из простой идеи: создать базовые вещи, которые не нужно менять каждый сезон. Вещи, которые становятся частью вашего гардероба на годы.</p>
+          </div>
+          <div>
+            <p>Мы верим, что настоящая роскошь — это не логотипы и тренды, а качество материалов и совершенство кроя. Каждая наша вещь проходит путь от эскиза до готового изделия под внимательным контролем наших мастеров.</p>
+            <p style="margin-top: 20px;">Наше производство расположено в Москве, что позволяет нам контролировать каждый этап и гарантировать высочайшее качество.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Timeline -->
+      <section class="timeline">
+        <div class="container">
+          <div class="section-header">
+            <h2>Как мы работаем</h2>
+          </div>
+          <div class="timeline-items">
+            <div class="timeline-item">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <path d="M12 19L19 12L12 5"/>
+                  <path d="M5 12H19"/>
+                </svg>
+              </div>
+              <h3>Поиск материалов</h3>
+              <p>Отбираем лучшие ткани у европейских поставщиков</p>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                  <path d="M2 17L12 22L22 17"/>
+                  <path d="M2 12L12 17L22 12"/>
+                </svg>
+              </div>
+              <h3>Разработка</h3>
+              <p>Создаём лекала и тестируем посадку</p>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/>
+                  <line x1="8" y1="21" x2="16" y2="21"/>
+                  <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+              </div>
+              <h3>Производство</h3>
+              <p>Шьём каждое изделие в московском ателье</p>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-icon">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <h3>Контроль</h3>
+              <p>Проверяем каждую вещь перед отправкой</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Materials -->
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Наши материалы</h2>
+            <p>Мы используем только премиальные ткани</p>
+          </div>
+          
+          <div class="materials-grid">
+            <div class="material-card">
+              <div class="material-swatch cotton"></div>
+              <div class="material-info">
+                <h3>Органический хлопок</h3>
+                <p>Выращен без пестицидов в Турции. Мягкий, дышащий, гипоаллергенный.</p>
+              </div>
+            </div>
+            
+            <div class="material-card">
+              <div class="material-swatch terry"></div>
+              <div class="material-info">
+                <h3>Французский терри</h3>
+                <p>Плотная петельчатая ткань 350 г/м². Идеальна для худи и свитшотов.</p>
+              </div>
+            </div>
+            
+            <div class="material-card">
+              <div class="material-swatch merino"></div>
+              <div class="material-info">
+                <h3>Мериносовая шерсть</h3>
+                <p>Ультратонкое волокно 17.5 микрон из Австралии. Не колется, регулирует температуру.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Team -->
+      <section class="container">
+        <div class="team-image">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=700&fit=crop" alt="Команда FORM">
+          <span class="ai-badge">Создано с помощью ИИ</span>
+        </div>
+      </section>
+    </div>
+
+    <!-- DELIVERY PAGE -->
+    <div class="page" id="page-delivery">
+      <div class="container">
+        <div class="delivery-header">
+          <h1>Доставка и возврат</h1>
+        </div>
+        
+        <section class="section">
+          <h2 style="margin-bottom: 24px;">Способы доставки</h2>
+          <table class="delivery-table">
+            <thead>
+              <tr>
+                <th>Способ</th>
+                <th>Сроки</th>
+                <th>Стоимость</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Курьером по Москве</td>
+                <td>1-2 дня</td>
+                <td>Бесплатно от 10 000 ₽ / 500 ₽</td>
+              </tr>
+              <tr>
+                <td>Курьером по России</td>
+                <td>3-7 дней</td>
+                <td>Бесплатно от 15 000 ₽ / 700 ₽</td>
+              </tr>
+              <tr>
+                <td>Пункты выдачи СДЭК</td>
+                <td>3-10 дней</td>
+                <td>От 300 ₽</td>
+              </tr>
+              <tr>
+                <td>Почта России</td>
+                <td>7-14 дней</td>
+                <td>От 400 ₽</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        
+        <section class="section">
+          <h2 style="margin-bottom: 24px;">Возврат товара</h2>
+          <div class="return-steps">
+            <div class="return-step">
+              <div class="step-number">1</div>
+              <h3>Заявка</h3>
+              <p>Оставьте заявку на возврат в личном кабинете или напишите нам</p>
+            </div>
+            <div class="return-step">
+              <div class="step-number">2</div>
+              <h3>Упаковка</h3>
+              <p>Упакуйте товар с бирками в оригинальную упаковку</p>
+            </div>
+            <div class="return-step">
+              <div class="step-number">3</div>
+              <h3>Отправка</h3>
+              <p>Передайте товар курьеру или отправьте в пункт выдачи</p>
+            </div>
+            <div class="return-step">
+              <div class="step-number">4</div>
+              <h3>Возврат средств</h3>
+              <p>Деньги вернутся в течение 3-10 дней</p>
+            </div>
+          </div>
+        </section>
+        
+        <section class="section">
+          <h2 style="margin-bottom: 24px;">Частые вопросы</h2>
+          <div class="faq-section">
+            <div class="faq-item">
+              <button class="faq-question">
+                Как узнать свой размер?
+                <svg viewBox="0 0 24 24" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>На каждой странице товара есть подробная размерная сетка с замерами в сантиметрах. Если вы сомневаетесь между двумя размерами, рекомендуем выбрать больший для свободной посадки или меньший для облегающей.</p>
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <button class="faq-question">
+                Можно ли вернуть товар без бирок?
+                <svg viewBox="0 0 24 24" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>К сожалению, мы принимаем возврат только товаров с сохранёнными бирками и в оригинальной упаковке. Это гарантирует, что другой покупатель получит вещь в идеальном состоянии.</p>
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <button class="faq-question">
+                Как ухаживать за изделиями?
+                <svg viewBox="0 0 24 24" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>Рекомендуем машинную стирку при 30°C с похожими цветами. Избегайте отбеливателей. Сушите в расправленном виде. Гладьте при средней температуре с изнаночной стороны.</p>
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <button class="faq-question">
+                Есть ли у вас физические магазины?
+                <svg viewBox="0 0 24 24" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>Пока мы работаем только онлайн, но планируем открыть шоурум в Москве. Подпишитесь на рассылку, чтобы узнать первыми!</p>
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <button class="faq-question">
+                Доставляете ли вы за границу?
+                <svg viewBox="0 0 24 24" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>Да, мы доставляем в страны СНГ курьерскими службами. Стоимость и сроки рассчитываются индивидуально. Напишите нам для уточнения деталей.</p>
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <button class="faq-question">
+                Как связаться с поддержкой?
+                <svg viewBox="0 0 24 24" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <p>Напишите нам на help@formstore.ru или в Telegram @form_support. Мы отвечаем ежедневно с 10:00 до 20:00 по московскому времени.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+<span class="footer-logo">FORM</span>
+        <span class="footer-copy">&copy; 2024 FORM. Все права защищены.</span>
+      </div>
+      <div style="text-align: center; padding: 16px 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-secondary);">
+        Изображения на этом сайте созданы с использованием технологий искусственного интеллекта
+      </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (prefersDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme === 'dark' ? 'dark' : '');
+    });
+    
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    
+    // Page navigation
+    const pages = document.querySelectorAll('.page');
+    const navItems = document.querySelectorAll('.nav-link');
+    const allNavTriggers = document.querySelectorAll('[data-page]');
+    
+    function showPage(pageId) {
+      pages.forEach(page => {
+        page.classList.remove('active');
+        if (page.id === `page-${pageId}`) {
+          page.classList.add('active');
+        }
+      });
+      
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('data-page') === pageId) {
+          item.classList.add('active');
+        }
+      });
+      
+      navLinks.classList.remove('open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    allNavTriggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const pageId = trigger.getAttribute('data-page');
+        showPage(pageId);
+      });
+    });
+    
+    // Product image switcher
+    document.querySelectorAll('.product-images').forEach(container => {
+      const images = container.querySelectorAll('img');
+      const dots = container.querySelectorAll('.image-dot');
+      
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const index = parseInt(dot.getAttribute('data-index'));
+          images.forEach((img, i) => img.classList.toggle('active', i === index));
+          dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        });
+      });
+      
+      // Hover to cycle through images
+      let currentIndex = 0;
+      container.addEventListener('mouseenter', () => {
+        if (images.length > 1) {
+          currentIndex = (currentIndex + 1) % images.length;
+          images.forEach((img, i) => img.classList.toggle('active', i === currentIndex));
+          dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+        }
+      });
+    });
+    
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const productCards = document.querySelectorAll('#collectionGrid .product-card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        productCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+    
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const wasOpen = item.classList.contains('open');
+        
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        
+        if (!wasOpen) {
+          item.classList.add('open');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
