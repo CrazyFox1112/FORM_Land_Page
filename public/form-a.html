@@ -966,9 +966,16 @@
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109167972', 'ym');
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
 
-    ym(109167972, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    ym(109167972, 'init', {
+      clickmap: true,
+      webvisor: true,
+      accurateTrackBounce: true,
+      trackLinks: true,
+      ecommerce: 'dataLayer',
+      triggerEvent: true
+    });
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/109167972" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
@@ -1168,7 +1175,7 @@
           <p>Подпишитесь на рассылку и получите скидку 10% на первый заказ</p>
           <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Спасибо за подписку!');">
             <input type="email" placeholder="Ваш email" required>
-            <button type="submit" class="btn" onclick="ym(109167972, 'reachGoal', 'subscription_click')">Подписаться</button>
+            <button type="submit" class="btn" onclick="typeof ym === 'function' && ym(109167972, 'reachGoal', 'subscription_click')">Подписаться</button>
           </form>
         </div>
       </section>
