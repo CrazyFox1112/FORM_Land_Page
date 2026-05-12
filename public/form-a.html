@@ -539,23 +539,25 @@
     .newsletter-form input {
       flex: 1;
       padding: 14px 20px;
-      border: 2px solid rgba(245, 243, 239, 0.55);
+      border: 2px solid #1a1814;
       border-radius: 4px;
-      background: rgba(255,255,255,0.12);
-      color: #eeebe4;
+      background: #ffffff;
+      color: #000000;
       font-size: 15px;
       font-family: inherit;
+      -webkit-text-fill-color: #000000;
     }
     
     .newsletter-form input::placeholder {
-      color: rgba(245,243,239,0.6);
+      color: rgba(0, 0, 0, 0.45);
     }
     
     .newsletter-form input:focus {
       outline: none;
-      border-color: rgba(245, 243, 239, 0.9);
-      background: rgba(255,255,255,0.15);
-      box-shadow: 0 0 0 1px rgba(245, 243, 239, 0.35);
+      border-color: #000000;
+      background: #ffffff;
+      color: #000000;
+      box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.45);
     }
     
     .newsletter-form button {
@@ -959,6 +961,7 @@
       .footer-links { flex-wrap: wrap; justify-content: center; }
     }
   </style>
+<script>window.dataLayer=window.dataLayer||[];</script>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
@@ -966,16 +969,9 @@
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109167972', 'ym');
 
-    ym(109167972, 'init', {
-      clickmap: true,
-      webvisor: true,
-      accurateTrackBounce: true,
-      trackLinks: true,
-      ecommerce: 'dataLayer',
-      triggerEvent: true
-    });
+    ym(109167972, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/109167972" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
